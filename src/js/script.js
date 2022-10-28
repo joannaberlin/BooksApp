@@ -56,17 +56,13 @@ Oczywiście musisz wykorzystać w tym celu dostarczony już szablon (#template-b
       let shouldBeHidden = false;
       const bookImage = document.querySelector('.book__image[data-id="' + book.id + '"]');
       for (let filter of filters) {
-        if (!book.details[filter]) {
+        if (book.details[filter]) {
           shouldBeHidden = true;
           break;
         }
       }
 
-      if (shouldBeHidden && filters.length === 1) {
-        bookImage.classList.add(classNames.bookHidden);
-        console.log('AAA', book);
-        console.log(filters);
-      } else if (filters.length === 2 && !book.details.adults && !book.details.nonFiction) {
+      if (shouldBeHidden) {
         bookImage.classList.add(classNames.bookHidden);
       } else {
         bookImage.classList.remove(classNames.bookHidden);
@@ -99,7 +95,6 @@ Oczywiście musisz wykorzystać w tym celu dostarczony już szablon (#template-b
 
       if (element.tagName === 'INPUT' && element.type === 'checkbox' && element.name === 'filter') {
         if (element.checked) {
-          console.log('checked');
           filters.push(element.value);
         } else {
           filters.splice(filters.indexOf(element.value), 1);
